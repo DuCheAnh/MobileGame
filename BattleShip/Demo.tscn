@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/tiles_sheet.png" type="Texture" id=1]
 [ext_resource path="res://Ship.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Joystick/Joystick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://CannonBall.tscn" type="PackedScene" id=4]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Ocean"
@@ -29,8 +30,9 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 
 [node name="Ship" parent="." instance=ExtResource( 2 )]
 position = Vector2( 269.695, 182.793 )
-joystickLeftPath = NodePath("../UI/Joystick")
-joystickRightPath = NodePath("../UI/Joystick2")
+joystickLeftPath = NodePath("../UI/JoystickLeft")
+joystickRightPath = NodePath("../UI/JoystickRight")
+cannonBall = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="Ship"]
 current = true
@@ -39,15 +41,18 @@ limit_top = 0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Joystick" parent="UI" instance=ExtResource( 3 )]
+[node name="JoystickLeft" parent="UI" instance=ExtResource( 3 )]
 margin_top = -304.0
 margin_right = 296.0
 _pressed_color = Color( 0.0823529, 0.0196078, 0.0196078, 1 )
 
-[node name="Joystick2" parent="UI" instance=ExtResource( 3 )]
+[node name="JoystickRight" parent="UI" instance=ExtResource( 3 )]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -300.0
+margin_left = -296.0
+margin_top = -304.0
 margin_right = 0.0
+_pressed_color = Color( 0.0823529, 0.0196078, 0.0196078, 1 )
 
-[editable path="UI/Joystick"]
+[editable path="UI/JoystickLeft"]
+[editable path="UI/JoystickRight"]
