@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/tiles_sheet.png" type="Texture" id=1]
 [ext_resource path="res://Ship.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Joystick/Joystick.tscn" type="PackedScene" id=3]
 [ext_resource path="res://CannonBall.tscn" type="PackedScene" id=4]
+[ext_resource path="res://HealthBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://MainScene.gd" type="Script" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Ocean"
@@ -21,7 +23,8 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[node name="Node2D" type="Node2D"]
+[node name="MainScene" type="Node2D"]
+script = ExtResource( 6 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -53,6 +56,10 @@ margin_left = -296.0
 margin_top = -304.0
 margin_right = 0.0
 _pressed_color = Color( 0.0823529, 0.0196078, 0.0196078, 1 )
+
+[node name="HealthBar" parent="UI" instance=ExtResource( 5 )]
+
+[connection signal="health_changed" from="Ship" to="." method="_on_Ship_health_changed"]
 
 [editable path="UI/JoystickLeft"]
 [editable path="UI/JoystickRight"]

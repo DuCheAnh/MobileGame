@@ -1,7 +1,7 @@
 extends Area2D
 
-export var speed : float = 750
-export var fly_time : float  = .5
+export (float) var speed = 750
+export (float) var fly_time = .5
 func _ready():
 	yield(get_tree().create_timer(fly_time),"timeout")
 	explode()

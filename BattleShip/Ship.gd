@@ -6,12 +6,12 @@ export (NodePath) var joystickRightPath
 onready var joystickRight : Joystick = get_node(joystickRightPath)
 export (PackedScene) var cannonBall
 
-export var max_health : int = 100
-export var bullet_count : int = 0
-export var speed : float = 200
-export var rotation_speed : float = 1.5
-export var sensitivity : float = 0.3
-
+export (int) var max_health = 100
+export (int )var bullet_amount = 10
+export (float) var speed = 200
+export (float) var rotation_speed  = 1.5
+export (float) var sensitivity  = 0.3
+export (float) var reload_time = 1
 signal health_changed(health)
 signal killed()
 
@@ -22,6 +22,8 @@ onready var health=max_health setget _set_health
 var velocity = Vector2.ZERO
 var rotation_dir : float = 0
 
+func _ready():
+	$ReloadTimer.wait_time=reload_time
 
 func _physics_process(delta):
 	_get_input()
@@ -59,28 +61,34 @@ func _get_input():
 func _set_health(value):
 	var prev_health = health
 	health = clamp(value,0,max_health)
-	print(health)
+	print("health: ",health)
 	if health!=prev_health:
 		emit_signal("health_changed",health)
 	if health==0:
 		kill()	
 		emit_signal("killed")
-
+func _update_bullet_amount(amount):
+	bullet_amount=amount
+	print("bullet: ",bullet_amount)
+func _canon_empty()->bool:
+	if bullet_amount>0:
+		return false
+	return true
 func damage(amount):
 	if $InvulnerabilityTimer.is_stopped():
 		$InvulnerabilityTimer.start()
 		_set_health(health-amount)
 		$AnimationPlayer.play("damaged")
 func shoot():
-	var cball = cannonBall.instance()
-	owner.add_child(cball)
-	cball.transform = $CannonBallPos.global_transform
+	if not _canon_empty():
+		if $ReloadTimer.is_stopped():
+			_update_bullet_amount(bullet_amount-1)
+			$ReloadTimer.start()
+			var cball = cannonBall.instance()
+			owner.add_child(cball)
+			cball.transform = $CannonBallPos.global_transform
 func kill():
 	pass
-
-
-
-
 
 func _on_InvulnerabilityTimer_timeout():
 	$AnimationPlayer.play("normal")

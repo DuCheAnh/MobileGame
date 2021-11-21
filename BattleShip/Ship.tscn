@@ -68,4 +68,7 @@ one_shot = true
 anims/damaged = SubResource( 4 )
 anims/normal = SubResource( 5 )
 
+[node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
