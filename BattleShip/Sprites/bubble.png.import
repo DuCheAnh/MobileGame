@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wood (2).png-a4b5dc6f9c4d85b2f855db730f15ba7d.stex"
+path="res://.import/bubble.png-7158fdafbd9a4cab431a459608665d16.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Ships/Ship parts/wood (2).png"
-dest_files=[ "res://.import/wood (2).png-a4b5dc6f9c4d85b2f855db730f15ba7d.stex" ]
+source_file="res://Sprites/bubble.png"
+dest_files=[ "res://.import/bubble.png-7158fdafbd9a4cab431a459608665d16.stex" ]
 
 [params]
 
