@@ -4,6 +4,8 @@ var network = NetworkedMultiplayerENet.new()
 var port = 3224
 var max_player = 4
 
+var players = {}
+
 func _ready():
 	start_server()
 
@@ -18,3 +20,8 @@ func _player_connected(id):
 	print("player " + str(id) + " connected")
 func _player_disconnected(id):
 	print("player " + str(id) + " disconnected")
+
+remote func send_player_info(id, player_data):
+	players[id]=player_data
+	rset("players",players)
+	rpc("update_waiting_room")
